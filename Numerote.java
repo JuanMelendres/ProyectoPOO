@@ -52,9 +52,40 @@ public class Numerote {
 	}
 
 	public Numerote suma(Numerote a){
+		String	b=String.valueOf( Math.abs(a.numerote.length-this.numerote.length-1));
+		Numerote resultado=new Numerote(a.toString());
+		if(this.numerote.length>a.numerote.length){
+			resultado=new Numerote(this.toString());
+		}
+		int c= a.numerote.length-this.numerote.length;
+		byte rtemp=0;
+		byte temp=0;
+		for(int i=0;i<numerote.length && i< a.numerote.length; i++){
+			rtemp=(byte) (this.numerote[i]+a.numerote[i]+temp);
+			if(rtemp>9){
+				temp=1;
+				rtemp-=10;
+			}else{
+				 temp=0;
+			}
+			resultado.numerote[i]=rtemp;   
+		}
+		if(c>0){
+			for(int i=0;i<c;i++){
+				resultado.numerote[this.numerote.length+i]=(byte) (a.numerote[this.numerote.length+i]+temp);
+				temp=0;
+				System.out.println(i);
+			}	
+			}else if(c<0){
+				for(int i=0;i<Math.abs(c);i++){
+					resultado.numerote[i+a.numerote.length]=(byte)(this.numerote[a.numerote.length+i]+temp);
+					 temp=0;
+					System.out.println(i);
+			}
+			
+			}
 
-
-		return new Numerote("00");
+		return resultado;
 
 	}
 
@@ -154,6 +185,12 @@ public class Numerote {
 		num1 = new Numerote("0");
 		num2 = new Numerote("2");
 		System.out.println("Resta de num1-num2: " + num1.resta(num2));
+		num1 = new Numerote("1");
+		num2 = new Numerote("94");
+		System.out.println("Suma de num1+num2: " + num1.suma(num2));
+		num1 = new Numerote("33956");
+		num2 = new Numerote("359");
+		System.out.println("Suma de num1+num2: " + num1.suma(num2));
 	}
 
 }
