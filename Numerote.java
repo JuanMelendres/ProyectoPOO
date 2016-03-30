@@ -51,7 +51,10 @@ public class Numerote {
 
 	}
 
+
+
 	public Numerote suma(Numerote a){
+
 		String	b=String.valueOf( Math.abs(a.numerote.length-this.numerote.length-1));
 		Numerote resultado=new Numerote(a.toString());
 		if(this.numerote.length>a.numerote.length){
@@ -66,7 +69,7 @@ public class Numerote {
 				temp=1;
 				rtemp-=10;
 			}else{
-				 temp=0;
+				temp=0;
 			}
 			resultado.numerote[i]=rtemp;   
 		}
@@ -76,55 +79,155 @@ public class Numerote {
 				temp=0;
 				System.out.println(i);
 			}	
-			}else if(c<0){
-				for(int i=0;i<Math.abs(c);i++){
-					resultado.numerote[i+a.numerote.length]=(byte)(this.numerote[a.numerote.length+i]+temp);
-					 temp=0;
-					System.out.println(i);
+		}else if(c<0){
+			for(int i=0;i<Math.abs(c);i++){
+				resultado.numerote[i+a.numerote.length]=(byte)(this.numerote[a.numerote.length+i]+temp);
+				temp=0;
+				System.out.println(i);
 			}
-			
-			}
+
+		}
 
 		return resultado;
 
+
 	}
 
-	public Numerote resta(Numerote numero){
+	private Numerote resta(Numerote a){
+
+		byte carry = 0,
+				resta = 0;
+
+		byte[] numMayor,
+		numMenor;
+
+		String signo = "";
+		String resultado = "";
+
+		if(a.numerote.length > this.numerote.length){
+
+			numMayor = a.numerote;
+			numMenor = this.numerote;
+			signo = "-";
+
+		}else if(a.numerote.length < this.numerote.length){
+
+			numMayor = this.numerote;
+			numMenor = a.numerote;
+
+		}else{
+
+			for(int i=a.numerote.length-1;i >= 0;i--){
+
+				if(a.numerote[i] > this.numerote[i]){
+
+					numMayor = a.numerote;
+					numMenor = this.numerote;
+
+				}else if(a.numerote[i] < this.numerote[i]){
+
+					numMayor = this.numerote;
+					numMenor = a.numerote;
+					signo = "-";
+
+				}
+
+			}
+
+			return new Numerote();
+
+		}
+
+		int ult = numMenor.length;
+
+		for(int i = 0; i < numMenor.length; i++){
+
+			if(numMayor[i] < numMenor[i]){
+
+				numMayor[i] += 10;
+				int temp = i + 1;
+
+				while(numMayor[temp] == 0){
+
+					numMayor[temp] += 9;
+					temp++;
+
+				}
+
+				numMayor[temp]--;
+
+			}
+
+			resta = (byte)(numMayor[i] - numMenor[i]);
+			resultado = (resta+"")+resultado;
+
+		}
+
+		while(ult < numMayor.length){
+
+			resultado = numMayor[ult]+resultado;
+			ult++;
+
+		}
+		if(signo.equals("-")){
+
+			resultado=(signo+"")+resultado;
+
+		}
+
+		return new Numerote(resultado);
+
+	}
+
+	public Numerote llamarResta(Numerote a){
+
+		if((a.signo == true) && (this.signo == false)){
+
+			return this.suma(a);
+
+		}else if((a.signo == false) && (this.signo == true)){
+
+			return this.suma(a);
+
+		}else if((a.signo == false) && (this.signo == false)){
+
+			return a.suma(this);
+
+		}else{
+
+			return this.resta(a);
+
+		}
 
 
-		Numerote resultado = new Numerote(this.toString());
-		byte temp = 0;
+		/*for(int i = 0; (i < numerote.length && i < a.numerote.length); i++) {
 
-		for(int i = 0; i < numerote.length && i < numero.numerote.length; i++) {
+			if ((this.numerote[i] < a.numerote[i]) && (numerote.length <= a.numerote.length)) {
 
-			if (this.numerote[i] < numero.numerote[i] && (numerote.length <= numero.numerote.length)) {
+				resultado.numerote[i] = (byte)(this.numerote[i] - a.numerote[i]);
 
-				resultado.numerote[i] = (byte)(this.numerote[i] - numero.numerote[i]);
-
-			} else if (this.numerote[i] < numero.numerote[i]) {
+			} else if (this.numerote[i] < a.numerote[i]) {
 
 				temp = (byte)(10 + this.numerote[i]);
-				resultado.numerote[i] = (byte)(temp - numero.numerote[i]);
+				resultado.numerote[i] = (byte)(temp - a.numerote[i]);
 				temp = (byte)(temp / 10);
 				continue;
 
 			} else {
 
-				resultado.numerote[i]  = (byte)(this.numerote[i] - numero.numerote[i]);
+				resultado.numerote[i]  = (byte)(this.numerote[i] - a.numerote[i]);
 				temp = (byte)0;
 
 			}
+		}
 
+		if ((numerote.length > a.numerote.length) && temp == (byte)1) {
+
+				resultado.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
 
 		}
 
-		if ((numerote.length > numero.numerote.length) && temp == (byte)1) {
-
-			resultado.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
-
-		}
-
-		return resultado;
+		return resultado;*/
 
 	}
 
@@ -153,38 +256,39 @@ public class Numerote {
 
 		Numerote tnum = new Numerote("17342567897057946835726514356789067958437625143546789065473625");
 		Numerote no = new  Numerote("12342567897057946835726514356789067958437625143546789065473625");
-		System.out.println("Resta de num1-num2: " + tnum.resta(no));
+		System.out.println("Resta de num1-num2: " + tnum.llamarResta(no));
 
 
 		System.out.println(" ");
 
 		Numerote num1 = new Numerote("10");
 		Numerote num2 = new Numerote("2");
-		System.out.println("Resta de num1-num2: " + num1.resta(num2));
+		System.out.println("Resta de num1-num2: " + num1.llamarResta(num2));
 
 		System.out.println(" ");
 
 		num1 = new Numerote("784");
 		num2 = new Numerote("143");
-		System.out.println("Resta de num1-num2: " + num1.resta(num2));
+		System.out.println("Resta de num1-num2: " + num1.llamarResta(num2));
 
 		System.out.println(" ");
 
 		num1 = new Numerote("100");
 		num2 = new Numerote("50");
-		System.out.println("Resta de num1-num2: " + num1.resta(num2));
+		System.out.println("Resta de num1-num2: " + num1.llamarResta(num2));
 
 		System.out.println(" ");
 
-		num1 = new Numerote("78431509735821789571623213209");   //este todavia no esta 
+		num1 = new Numerote("78431509735821789571623213209");
 		num2 = new Numerote("93236412621465972356736921327");
-		System.out.println("Resta de num1-num2: " + num1.resta(num2));
-		
+		System.out.println("Resta de num1-num2: " + num1.llamarResta(num2));
+
 		System.out.println(" ");
 
 		num1 = new Numerote("0");
 		num2 = new Numerote("2");
-		System.out.println("Resta de num1-num2: " + num1.resta(num2));
+		System.out.println("Resta de num1-num2: " + num1.llamarResta(num2));
+		
 		num1 = new Numerote("1");
 		num2 = new Numerote("94");
 		System.out.println("Suma de num1+num2: " + num1.suma(num2));
@@ -194,3 +298,4 @@ public class Numerote {
 	}
 
 }
+
