@@ -93,12 +93,12 @@ public class Numerote {
 
 	public Numerote resta(Numerote a){
 				
-		Numerote resultado = new Numerote(this.toString());
-		Numerote resultado1 = new Numerote(this.toString());
-		Numerote resultado2 = new Numerote(this.toString());
+	Numerote resultado = new Numerote(this.toString());
+	Numerote resultado1 = new Numerote(this.toString());
+	Numerote resultado2 = new Numerote(this.toString());
         byte temp = 0;
         
-        if(this.numerote.length > a.numerote.length){
+        if(this.numerote.length >= a.numerote.length){
         	
         	System.out.println("entreeeeee");
         	for(int i = 0; i < numerote.length && i < a.numerote.length; i++) {
