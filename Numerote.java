@@ -230,15 +230,22 @@ public class Numerote {
 	public String toString(){
 
 		StringBuffer palabra= new StringBuffer();
-
+		Substring sb = new Substring(numerote);
+	 
 		for(int i = 0; i < this.numerote.length; i++){
 
 			palabra.append(this.numerote[this.numerote.length-1-i]);
 
 		}
+		
+		while (sb.substring(0,1).equals("0")) {
+			sb.deleteCharAt(0);
+		}
+		while(((sb.substring(0,1).equals("-"))&&(sb.substring(1,2).equals("0")))){
+			sb.deleteCharAt(1);
+		}
 
 		return palabra.toString();
-
 	}
 
 	public static void main(String []args){
