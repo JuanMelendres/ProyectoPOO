@@ -91,52 +91,68 @@ public class Numerote {
 
 	}
 
-	private Numerote resta(Numerote a){
-
+	public Numerote resta(Numerote a){
+				
 		Numerote resultado = new Numerote(this.toString());
-		byte temp = 0;
-
-		if(this.numerote.length > a.numerote.length){ 
-			for(int i = 0; i < numerote.length && i < a.numerote.length; i++) {
-
-				if (this.numerote[i] < a.numerote[i] && (numerote.length <= a.numerote.length)) {
-					resultado.numerote[i] = (byte)(this.numerote[i] - a.numerote[i]);
-				} else if (this.numerote[i] < a.numerote[i]) {
-					temp = (byte)(10 + this.numerote[i]);
-					resultado.numerote[i] = (byte)(temp - a.numerote[i]);
-					temp = (byte)(temp / 10);
-					continue;
-				} else {
-					resultado.numerote[i]  = (byte)(this.numerote[i] - a.numerote[i]);
-					temp = (byte)0;
-				}
-			}
-			if ((numerote.length > a.numerote.length) && temp == (byte)1) {
-				resultado.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
-			}
-			
-			return resultado;
-		}else if(a.numerote.length > this.numerote.length){
-			for(int i = 0; i > numerote.length && i > a.numerote.length; i++) {
-
-				if (this.numerote[i] > a.numerote[i] && (numerote.length >= a.numerote.length)) {
-					resultado.numerote[i] = (byte)(this.numerote[i] - a.numerote[i]);
-				} else if (this.numerote[i] < a.numerote[i]) {
-					temp = (byte)(10 + this.numerote[i]);
-					resultado.numerote[i] = (byte)(temp - a.numerote[i]);
-					temp = (byte)(temp / 10);
-					continue;
-				} else {
-					resultado.numerote[i]  = (byte)(this.numerote[i] - a.numerote[i]);
-					temp = (byte)0;
-				}
-			}
-			if ((numerote.length < a.numerote.length) && temp == (byte)1) {
-				resultado.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
-			}
-			return resultado;
-		}	
-		return resultado;
+		Numerote resultado1 = new Numerote(this.toString());
+		Numerote resultado2 = new Numerote(this.toString());
+        byte temp = 0;
+        
+        if(this.numerote.length > a.numerote.length){
+        	
+        	System.out.println("entreeeeee");
+        	for(int i = 0; i < numerote.length && i < a.numerote.length; i++) {
+                
+                if (this.numerote[i] < a.numerote[i] && (numerote.length <= a.numerote.length)) {
+                    resultado1.numerote[i] = (byte)(this.numerote[i] - a.numerote[i]);
+                } else if (this.numerote[i] < a.numerote[i]) {
+                    temp = (byte)(10 + this.numerote[i]);
+                    resultado1.numerote[i] = (byte)(temp - a.numerote[i]);
+                    temp = (byte)(temp / 10);
+                    continue;
+                } else {
+                    resultado1.numerote[i]  = (byte)(this.numerote[i] - a.numerote[i]);
+                    temp = (byte)0;
+                }
+            }
+            if ((numerote.length > a.numerote.length) && temp == (byte)1) {
+                resultado1.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
+            }
+            return resultado1;
+            
+        }else if(a.numerote.length > this.numerote.length){
+        	
+        	System.out.println("entraaaa");
+        	
+        	for(int i = 0; i < a.length && i < numerote.length; i++){
+	        	if (a.numerote[i] > this.numerote[i] && (a.numerote.length >= numerote.length)) {
+	            	resultado2.numerote[i] = (byte)(a.numerote[i] - this.numerote[i]);
+        		} else if (a.numerote[i] < this.numerote[i]) {
+		        	temp = (byte)(10 + a.numerote[numerote.length]);
+		            resultado2.numerote[i] = (byte)(temp - this.numerote[i]);
+		            temp = (byte)(temp / 10);
+        		} else {
+		            resultado2.numerote[i]  = (byte)(a.numerote[i] - this.numerote[i]);
+		            temp = (byte)0;
+        		}
+        	}
+        	if ((a.length > numerote.length) && temp == (byte)1) {
+                resultado2.numerote[numerote.length-1]  = (byte)(this.numerote[numerote.length-1] - (byte)temp);
+        	}
+        	return resultado2;
+        	
+        }
+        
+        if (this.numerote.length > a.numerote.length){
+        	System.out.println("que regresas");
+        	resultado1 = resultado;
+        	
+        }else if (a.numerote.length > this.numerote.length) {
+        	System.out.println("que regresas!!!!");
+        	resultado2 = resultado;
+        }
+        
+        return resultado;
 		
 	}
 
